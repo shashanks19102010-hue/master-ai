@@ -1,193 +1,53 @@
-# master-ai
-Master.ai
+# Master.ai
 
+A responsive ChatGPT-style AI chat interface powered by Next.js and an n8n workflow webhook.
 
-Modern AI Chat Website powered by Next.js, n8n, and DeepSeek AI.
+## Features
 
+- Mobile, laptop, and desktop friendly chat layout
+- n8n production webhook with automatic test-webhook fallback
+- Session ID memory for workflow conversations
+- Local browser chat history
+- Starter prompt cards
+- Markdown rendering for AI replies
+- Copy-to-clipboard on every message
+- Auto-growing message input
+- Master.ai logo in the app and browser metadata
 
+## Webhook URLs
 
-Features
+The app uses these defaults and also supports environment overrides:
 
+```env
+N8N_WEBHOOK_URL=https://shashanksss.app.n8n.cloud/webhook/b6587c8f-17e2-45bd-ae8f-280f7f0afa29
+N8N_TEST_WEBHOOK_URL=https://shashanksss.app.n8n.cloud/webhook-test/b6587c8f-17e2-45bd-ae8f-280f7f0afa29
+NEXT_PUBLIC_N8N_WEBHOOK=https://shashanksss.app.n8n.cloud/webhook/b6587c8f-17e2-45bd-ae8f-280f7f0afa29
+NEXT_PUBLIC_N8N_TEST_WEBHOOK=https://shashanksss.app.n8n.cloud/webhook-test/b6587c8f-17e2-45bd-ae8f-280f7f0afa29
+```
 
+If n8n says the production webhook is not registered, activate the workflow in n8n. For the test webhook, open the workflow editor and click **Listen for test event** before sending a message.
 
+## Development
 
-Modern ChatGPT-style UI
-
-
-Responsive mobile design
-
-
-AI chat integration
-
-
-n8n workflow automation
-
-
-DeepSeek AI support
-
-
-Session memory
-
-
-Markdown rendering
-
-
-Smooth animations
-
-
-Sidebar interface
-
-
-Typing loader
-
-
-Dark premium theme
-
-
-Vercel deployment ready
-
-
-
-
-
-Tech Stack
-
-
-
-
-Next.js
-
-
-TypeScript
-
-
-Tailwind CSS
-
-
-Framer Motion
-
-
-React Markdown
-
-
-n8n
-
-
-DeepSeek AI
-
-
-
-
-
-Installation
-
-
+```bash
 npm install
-
-
-
-
-Run Development Server
-
-
 npm run dev
+```
 
+Open http://localhost:3000.
 
+## Build
 
-Open:
+```bash
+npm run build
+```
 
+## Project structure
 
-http://localhost:3000
-
-
-
-
-Environment Variables
-
-
-Create .env.local
-
-
-NEXT_PUBLIC_N8N_WEBHOOK=YOUR_N8N_WEBHOOK_URL
-
-
-
-
-n8n Workflow
-
-
-Webhook
-   ↓
-AI Agent
-   ↓
-Respond to Webhook
-
-
-
-Memory Connection:
-
-
-Simple Memory → AI Agent
-
-
-
-AI Model Connection:
-
-
-DeepSeek → AI Agent
-
-
-
-
-Deploy on Vercel
-
-
-
-
-Push code to GitHub
-
-
-Import repository into Vercel
-
-
-Add environment variables
-
-
-Deploy
-
-
-
-
-
-Project Structure
-
-
-src/
- ├── app/
- ├── components/
- ├── lib/
- └── styles/
-
-
-
-
-Screenshots
-
-
-Add your UI screenshots here.
-
-
-
-License
-
-
-MIT License
-
-
-
-Author
-
-
-Shashank
-
-
+```text
+src/app/             Next.js app routes and global styles
+src/app/api/chat/    Chat API proxy to n8n
+src/components/      UI components
+src/lib/             Shared chat, session, and n8n helpers
+public/logo.png      Master.ai logo
+```

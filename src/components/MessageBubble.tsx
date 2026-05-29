@@ -1,42 +1,53 @@
 "use client";
 
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 
-export default function MessageBubble({
-  role,
-  content,
-}: {
-  role: string;
-  content: string;
-}) {
+import type { ChatMessage } from "../lib/chat";
 
-  const isUser = role === "user";
+type MessageBubbleProps = {
+  message: ChatMessage;
+};
+
+export default function MessageBubble({ message }: MessageBubbleProps) {
+  const [copied, setCopied] = useState(false);
+  const isUser = message.role === "user";
+
+  async function copyMessage() {
+    try {
+      await navigator.clipboard.writeText(message.content);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1200);
+    } catch {
+      setCopied(false);
+    }
+  }
 
   return (
-
-    <div
-      className={`flex ${
-        isUser
-          ? "justify-end"
-          : "justify-start"
+    <article
+      className={`group flex min-w-0 flex-col gap-1 ${
+        isUser ? "items-end" : "items-start"
       }`}
     >
-
       <div
-        className={`max-w-[90%] md:max-w-[75%] rounded-3xl px-5 py-4 text-sm leading-7 ${
+        className={`message-content min-w-0 max-w-[88%] overflow-hidden rounded-3xl px-4 py-3 text-sm leading-7 shadow-sm sm:max-w-[78%] sm:px-5 ${
           isUser
-            ? "bg-white text-black"
-            : "bg-[#1f1f1f] text-white"
+            ? "bg-[#303030] text-white"
+            : "bg-transparent text-[#ececec] sm:max-w-full"
         }`}
       >
-
-        <ReactMarkdown>
-
-          {content}
-
-        </ReactMarkdown>
-
+        <ReactMarkdown>{message.content}</ReactMarkdown>
       </div>
-    </div>
+
+      <button
+        type="button"
+        onClick={copyMessage}
+        className={`rounded-lg px-2 py-1 text-xs text-[#9b9b9b] opacity-100 transition hover:bg-white/10 hover:text-white sm:opacity-0 sm:group-hover:opacity-100 ${
+          isUser ? "mr-2" : "ml-2"
+        }`}
+      >
+        {copied ? "Copied" : "Copy"}
+      </button>
+    </article>
   );
 }

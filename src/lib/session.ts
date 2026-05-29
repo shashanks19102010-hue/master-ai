@@ -1,18 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
 
+const SESSION_KEY = "master_ai_session";
+
 export function getSessionId() {
-  if (typeof window === "undefined") return "";
+  if (typeof window === "undefined") return "server-session";
 
-  let sessionId = localStorage.getItem("master_ai_session");
+  const existingSession = localStorage.getItem(SESSION_KEY);
 
-  if (!sessionId) {
-    sessionId = uuidv4();
+  if (existingSession) return existingSession;
 
-    localStorage.setItem(
-      "master_ai_session",
-      sessionId
-    );
-  }
+  const nextSession = uuidv4();
 
-  return sessionId;
+  localStorage.setItem(SESSION_KEY, nextSession);
+
+  return nextSession;
 }
