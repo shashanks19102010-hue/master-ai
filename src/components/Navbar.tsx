@@ -7,7 +7,7 @@ export default function Navbar() {
       <div className="flex items-center gap-3">
 
         <img
-          src="/ChatGPT Image May 27, 2026, 02_07_57 PM.png"
+          src="/logo.png"
 
           alt="logo"
 
