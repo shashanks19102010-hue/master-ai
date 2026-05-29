@@ -2,5 +2,9 @@
   command = "npm run build"
   publish = ".next"
 
+[build.environment]
+  # Ensure Netlify installs TypeScript and type packages needed during `next build`.
+  NPM_FLAGS = "--include=dev"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
